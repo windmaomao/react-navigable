@@ -2,13 +2,14 @@ import Navigable from './Navigable'
 
 describe('Navigable', () => {
   let children
-  const items = [1, 2]
+  const items = [1, 2, 3]
   let activeItem
   const onSelectItem = item => { activeItem = item }
   const getArgs = call => {
     const calls = call.mock.calls
     return calls.length ? calls[0][0] : {}
   }
+  const lastItem = items.length
   beforeEach(() => {
     children = jest.fn()
   })  
@@ -56,7 +57,7 @@ describe('Navigable', () => {
   })
 
   it('should not be able to goto the next item', () => {
-    activeItem = 2
+    activeItem = lastItem
     Navigable({ items, activeItem, onSelectItem, children })
 
     const { canNext } = getArgs(children)
@@ -86,6 +87,30 @@ describe('Navigable', () => {
 
     const { canPrev } = getArgs(children)
     expect(canPrev).toEqual(false)
+  })
+
+  it('should circle to the first item', () => {
+    activeItem = lastItem
+    Navigable({ 
+      items, activeItem, onSelectItem, children,
+      circular: true
+   })
+
+    const { next } = getArgs(children)
+    next()
+    expect(activeItem).toEqual(1)
+  })
+
+  it('should circle to the last item', () => {
+    activeItem = 1
+    Navigable({
+      items, activeItem, onSelectItem, children,
+      circular: true
+    })
+
+    const { prev } = getArgs(children)
+    prev()
+    expect(activeItem).toEqual(lastItem)
   })
 
 })

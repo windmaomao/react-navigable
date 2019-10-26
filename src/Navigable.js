@@ -10,21 +10,32 @@ const defaultOptions = {
 }
 
 const Navigable = ({ 
-  items, activeItem, onSelectItem, children 
+  items, activeItem, onSelectItem, children,
+  circular,
 }, { useCallback } = defaultOptions) => {
   if (!items) return null
   if (!children) return null
 
   const goto = useCallback(onSelectItem)
   const index = items.indexOf(activeItem)
-  const canPrev = index > 0
-  const prev = useCallback(() => canPrev && goto(items[index - 1]))
-  const canNext = index + 1 < items.length
-  const next = useCallback(() => canNext && goto(items[index + 1]))
+  const count = items.length
+
+  const prevIndex = index > 0 ? index - 1 : (
+    !circular ? null : count - 1
+  )
+  const canPrev = prevIndex !== null
+  const prev = useCallback(() => canPrev && goto(items[prevIndex]))
+
+  const nextIndex = index < count - 1 ? index + 1 : (
+    !circular ? null : 0
+  )
+  const canNext = nextIndex !== null
+  const next = useCallback(() => canNext && goto(items[nextIndex]))
 
   const newProps = { 
     items, activeItem, goto, index, 
-    canPrev, prev, canNext, next,
+    prevIndex, canPrev, prev, 
+    nextIndex, canNext, next,
   }
 
   return children(newProps)
