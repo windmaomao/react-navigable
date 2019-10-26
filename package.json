@@ -23,7 +23,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
-    "test": "jest"
+    "test": "jest --watch"
   },
   "repository": {
     "type": "git",

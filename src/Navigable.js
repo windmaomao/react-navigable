@@ -5,36 +5,29 @@
  * new set of props as inputs
  */
 
-import { useCallback } from 'react'
-import PropTypes from 'prop-types'
+const defaultOptions = {
+  useCallback: a => a
+}
 
 const Navigable = ({ 
   items, activeItem, onSelectItem, children 
-}) => {
+}, { useCallback } = defaultOptions) => {
+  if (!items) return null
   if (!children) return null
 
   const goto = useCallback(onSelectItem)
   const index = items.indexOf(activeItem)
   const canPrev = index > 0
   const prev = useCallback(() => canPrev && goto(items[index - 1]))
+  const canNext = index + 1 < items.length
+  const next = useCallback(() => canNext && goto(items[index + 1]))
 
   const newProps = { 
-    items, activeItem, 
-    goto, index, 
-    canPrev, prev, 
+    items, activeItem, goto, index, 
+    canPrev, prev, canNext, next,
   }
 
   return children(newProps)
-}
-
-Navigable.propTypes = {
-  items: PropTypes.array,
-  activeItem: PropTypes.any,
-}
-
-Navigable.defaultProps = {
-  items: [],
-  activeItem: null,
 }
 
 export default Navigable
