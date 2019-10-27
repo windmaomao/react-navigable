@@ -33,7 +33,8 @@ const Navigable = ({
   const next = useCallback(() => canNext && goto(items[nextIndex]))
 
   const newProps = { 
-    items, activeItem, goto, index, 
+    items, activeItem, index, 
+    goto,
     prevIndex, canPrev, prev, 
     nextIndex, canNext, next,
   }
