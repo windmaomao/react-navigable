@@ -1,8 +1,8 @@
 # React Navigable
 
-Common behavior to display list of items and help navigate in between.
+Common behavior component for listing items and navigating in between.
 
-> Notes: this pattern isn't useful if you are just going to implement the interface in your own component, however it'll become more resuable and robust work if the interface needs to channel through couple of children components which require navigation properites and behaviors.
+> Notes: the component isn't useful enough if you are going to implement similar interface directly in your own component, however it'll become more resuable and robust in case that this interface needs to channel through multiple children components carrying these navigation properites and functions.
 
 ## Usage
 
@@ -12,6 +12,7 @@ Common behavior to display list of items and help navigate in between.
     activeItem={activeItem}
     onSelectItem={onSelectItem}
     circular={false}
+    backward={false}
   >
     {(    
       items, activeItem,       
@@ -24,20 +25,15 @@ Common behavior to display list of items and help navigate in between.
   </Navigable>
 ```
 
-Once the array of items is provided via `items`, the component can be controlled by the prop `activeItem` and the callback `onSelectItem`.
-
 The render prop passes `items` and `activeItem` through to the child component, along with other utility functions, such as
 
 - goto(item), jump to one item
 - prev(), go to the previous item
 - next(), go to the next item
 
-Depending if `circular` flag is set, the list will be one time or repeat itself with no stop.  
+Depending if `circular` or `backward` flag is set, the list can behave going circular or backward.  
 
 ## Examples
-
-The idea of using this component is to facilliate other components which share similar navigation behavior, such as paginator, table, carousel, or navbar etc. 
-
 
 ### Paginator
 
@@ -66,7 +62,7 @@ Assuming `items` is array of numbers `[1,2,3,4,5]`. The render prop can manage
   )
 ```
 
-This design can be further used for `Carousel` and `Table` and it'll be referred as `PaginatorComponent`.
+This component can be further used for `Carousel` and `Table` referred as `PaginatorComponent`.
 
 ### Carousel
 
