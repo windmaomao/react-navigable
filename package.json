@@ -22,6 +22,7 @@
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
+    "prepublish": "cp README.md dist && cp dist.package.json dist/package.json",
     "test": "jest --watch"
   },
   "author": "Fang Jin",

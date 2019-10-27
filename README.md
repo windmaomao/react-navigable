@@ -2,6 +2,8 @@
 
 Common behavior to display list of items and help navigate in between.
 
+> Notes: this pattern isn't useful if you are just going to implement the interface in your own component, however it'll become more resuable and robust work if the interface needs to channel through couple of children components which require navigation properites and behaviors.
+
 ## Usage
 
 ```
