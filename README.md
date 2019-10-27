@@ -1,8 +1,6 @@
 # React Navigable
 
-Common behavior component for listing items and navigating in between.
-
-> Notes: the component isn't useful enough if you are going to implement similar interface directly in your own component, however it'll become more resuable and robust in case that this interface needs to channel through multiple children components carrying these navigation properites and functions.
+Common behavior component for navigating a list of flat items with `goto`, `next` and `prev` capability, therefore useful to help create components such as `Paginator`, `Carousel` or `Table` etc.
 
 ## Usage
 
@@ -31,7 +29,7 @@ The render prop passes `items` and `activeItem` through to the child component, 
 - prev(), go to the previous item
 - next(), go to the next item
 
-Depending if `circular` or `backward` flag is set, the list can behave going circular or backward.  
+Depending if `circular`, `backward`, or `locked` flag is set, the list can behave going circular, backward or nowhere.
 
 ## Examples
 
@@ -117,28 +115,6 @@ Assume the main table area can be rendered by `TbodyPage`, the render prop can b
     </TableComponent>
   )}
 </Navigable>
-```
-
-### Nav
-
-Although the `items` is normally as simple as a number array `[1,2,...]`, in practice, it can be extended as array of object, ex. `[{ label: 'Home' }]`, which can be then passed into nav item rendering.
-
-```
-  {({ items, activeItem, goto }) => (
-    <Container>
-      <Row>
-        {items.map((item, i) => (
-          <Col key={i}>
-            <NavItem
-              item={item}
-              active={activeItem === item}
-              onSelect={goto}
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  )}
 ```
 
 ## State management

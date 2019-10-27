@@ -11,7 +11,7 @@ import list from './list'
 
 const Navigable = ({ 
   items, activeItem, onSelectItem, children,
-  circular, backward
+  circular, backward, locked
 }) => {
   if (!items) return null
   if (!children) return null
@@ -29,7 +29,7 @@ const Navigable = ({
     canNext = fns.canNext()
   }, [items, activeItem, circular])
 
-  const goto = React.useCallback(onSelectItem)
+  const goto = React.useCallback(item => { !locked && onSelectItem(item) })
   const prev = React.useCallback(() => canPrev && goto(items[prevIndex]))
   const next = React.useCallback(() => canNext && goto(items[nextIndex]))
 
@@ -49,6 +49,8 @@ Navigable.propTypes = {
   onSelectItem: PropTypes.func, 
   children: PropTypes.func,
   circular: PropTypes.bool,
+  forward: PropTypes.bool,
+  locked: PropTypes.bool
 }
 
 Navigable.defaultProps = {
@@ -56,7 +58,9 @@ Navigable.defaultProps = {
   activeItem: null,
   onSelectItem: () => {},
   children: null,
-  circular: false
+  circular: false,
+  foward: false,
+  locked: false
 }
 
 export default Navigable

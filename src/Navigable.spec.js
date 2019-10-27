@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Navigable from './Navigable'
 
-const n = (items, children, activeItem, onSelectItem, circular, backward) => (
+const n = (items, children, activeItem, onSelectItem, circular, backward, locked) => (
   <Navigable
     items={items}
     children={children}
@@ -10,6 +10,7 @@ const n = (items, children, activeItem, onSelectItem, circular, backward) => (
     onSelectItem={onSelectItem}
     circular={circular}
     backward={backward}
+    locked={locked}
   />
 )
 
@@ -24,9 +25,9 @@ describe('Navigable', () => {
   let children
   let activeItem
   const select = item => { activeItem = item }
-  const render = (item, circular, backward) => {
+  const render = (item, circular, backward, locked) => {
     activeItem = item
-    shallow(n(list, children, activeItem, select, circular, backward))
+    shallow(n(list, children, activeItem, select, circular, backward, locked))
   }
   const getArgs = call => {
     const calls = call.mock.calls
@@ -116,6 +117,13 @@ describe('Navigable', () => {
     render(lastItem, true, true)
     const { prev } = getArgs(children)
     prev()
+    expect(activeItem).toEqual(firstItem)
+  })
+
+  it('should not goto an item upon locked', () => {
+    render(firstItem, false, false, true)
+    const { goto } = getArgs(children)
+    goto(firstItem + 1)
     expect(activeItem).toEqual(firstItem)
   })
 
