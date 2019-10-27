@@ -1,7 +1,7 @@
 {
   "name": "react-navigable",
-  "version": "1.0.0",
-  "description": "Common behavior of tracking list of items and navigating them via user interaction.",
+  "version": "1.0.1",
+  "description": "Common behavior component for navigating a list of flat items with goto, next and prev capability, therefore useful to help create components such as Paginator, Carousel or Table etc.",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -11,7 +11,6 @@
     "React",
     "Navigation",
     "Pagination",
-    "Navbar",
     "Table",
     "Carousel"
   ],

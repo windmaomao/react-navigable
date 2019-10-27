@@ -1,6 +1,6 @@
 {
   "name": "react-navigable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common behavior of tracking list of items and navigating them via user interaction.",
   "main": "dist/index.js",
   "dependencies": {},

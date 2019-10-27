@@ -11,6 +11,7 @@ Common behavior component for navigating a list of flat items with `goto`, `next
     onSelectItem={onSelectItem}
     circular={false}
     backward={false}
+    locked={false}
   >
     {(    
       items, activeItem,       
@@ -29,7 +30,7 @@ The render prop passes `items` and `activeItem` through to the child component, 
 - prev(), go to the previous item
 - next(), go to the next item
 
-Depending if `circular`, `backward`, or `locked` flag is set, the list can behave going circular, backward or nowhere.
+Depending if `circular`, `backward`, or `locked` flag is set, the list can behave like going circular, backward or nowhere.
 
 ## Examples
 
