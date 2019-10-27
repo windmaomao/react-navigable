@@ -5,8 +5,9 @@
  * new set of props as inputs
  */
 
-import list from './list'
 import React from 'react'
+import PropTypes from 'prop-types'
+import list from './list'
 
 const Navigable = ({ 
   items, activeItem, onSelectItem, children,
@@ -40,6 +41,22 @@ const Navigable = ({
   }
 
   return children(newProps)
+}
+
+Navigable.propTypes = {
+  items: PropTypes.array, 
+  activeItem: PropTypes.any, 
+  onSelectItem: PropTypes.func, 
+  children: PropTypes.func,
+  circular: PropTypes.bool,
+}
+
+Navigable.defaultProps = {
+  items: null,
+  activeItem: null,
+  onSelectItem: () => {},
+  children: null,
+  circular: false
 }
 
 export default Navigable

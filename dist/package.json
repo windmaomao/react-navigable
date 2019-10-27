@@ -1,0 +1,13 @@
+{
+  "name": "react-navigable",
+  "version": "1.0.0",
+  "description": "Common behavior of tracking list of items and navigating them via user interaction.",
+  "main": "index.js",
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "author": "Fang Jin",
+  "license": "MIT"
+}

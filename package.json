@@ -1,8 +1,8 @@
 {
-  "name": "styled-ui",
+  "name": "react-navigable",
   "version": "1.0.0",
-  "description": "Styled UI",
-  "main": "index.js",
+  "description": "Common behavior of tracking list of items and navigating them via user interaction.",
+  "main": "dist/index.js",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -14,7 +14,6 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
-    "react-styled-flexboxgrid": "^3.1.0",
     "rollup": "^1.23.1",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
@@ -25,14 +24,6 @@
     "build:watch": "rollup -c -w",
     "test": "jest --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/windmaomao/styled-ui.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/windmaomao/styled-ui/issues"
-  },
-  "homepage": "https://github.com/windmaomao/styled-ui#readme"
+  "author": "Fang Jin",
+  "license": "MIT"
 }
