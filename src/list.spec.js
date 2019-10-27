@@ -56,4 +56,44 @@ describe('list', () => {
     expect(fns.prevIndex()).toEqual(l)
   })
 
+  it('should be able to back to the next item', () => {
+    const fns = list(c, l, false, true)
+    expect(fns.canNext()).toEqual(true)
+  })
+
+  it('should back to the next item', () => {
+    const fns = list(c, l, false, true)
+    expect(fns.nextIndex()).toEqual(l - 1)
+  })
+
+  it('should not be able to goto the next item', () => {
+    const fns = list(c, f, false, true)
+    expect(fns.canNext()).toEqual(false)
+  })
+
+  it('should be able to back to the previous item', () => {
+    const fns = list(c, f, false, true)
+    expect(fns.canPrev()).toEqual(true)
+  })
+
+  it('should back to the previous item', () => {
+    const fns = list(c, f, false, true)
+    expect(fns.prevIndex()).toEqual(f + 1)
+  })
+
+  it('should not be able to back to the prev item', () => {
+    const fns = list(c, l, false, true)
+    expect(fns.canPrev()).toEqual(false)
+  })
+
+  it('should circle back to the last item', () => {
+    const fns = list(c, f, true, true)
+    expect(fns.nextIndex()).toEqual(l)
+  })
+
+  it('should circle back to the first item', () => {
+    const fns = list(c, l, true, true)
+    expect(fns.prevIndex()).toEqual(f)
+  })
+
 })
