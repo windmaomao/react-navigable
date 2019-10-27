@@ -30,7 +30,7 @@ describe('Navigable', () => {
     expect(calls.length).toEqual(1)
   })
 
-  it('should goto a item', () => {
+  it('should goto an item', () => {
     activeItem = 1
     Navigable({ items, activeItem, onSelectItem, children })
 

@@ -6,7 +6,7 @@
  */
 
 import list from './list'
-import { useCallback, useEffect } from 'react'
+import React from 'react'
 
 const Navigable = ({ 
   items, activeItem, onSelectItem, children,
@@ -18,7 +18,7 @@ const Navigable = ({
   let fns
   let prevIndex, canPrev, nextIndex, canNext
 
-  useEffect(() => {
+  React.useEffect(() => {
     const count = items.length
     const index = items.indexOf(activeItem)
     fns = list(count, index, circular)
@@ -28,9 +28,9 @@ const Navigable = ({
     canNext = fns.canNext()
   }, [items, activeItem, circular])
 
-  const goto = useCallback(onSelectItem)
-  const prev = useCallback(() => canPrev && goto(items[prevIndex]))
-  const next = useCallback(() => canNext && goto(items[nextIndex]))
+  const goto = React.useCallback(onSelectItem)
+  const prev = React.useCallback(() => canPrev && goto(items[prevIndex]))
+  const next = React.useCallback(() => canNext && goto(items[nextIndex]))
 
   const newProps = { 
     items, activeItem, 

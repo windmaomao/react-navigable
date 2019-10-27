@@ -2,20 +2,38 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Navigable from './Navigable'
 
-const n = (items, children, activeItem) => (
+const n = (items, children, activeItem, onSelectItem) => (
   <Navigable
     items={items}
     children={children}
     activeItem={activeItem}
+    onSelectItem={onSelectItem}
   />
 )
 
-const list = [0, 1, 2]
+const list = [1, 2, 3]
+const firstItem = 1
+const lastItem = list.length
+
 describe('Navigable', () => {
+  jest.spyOn(React, "useEffect").mockImplementation(f => f())
+  jest.spyOn(React, "useCallback").mockImplementation(f => f)
+
   let children
-  const render = item => shallow(n(list, children, item))
+  let activeItem
+  const select = item => { activeItem = item }
+  const render = item => {
+    activeItem = item
+    shallow(n(list, children, activeItem, select))
+  }
+  const getArgs = call => {
+    const calls = call.mock.calls
+    return calls.length ? calls[0][0] : {}
+  }
+
   beforeEach(() => {
     children = jest.fn()
+    activeItem = null
   })  
 
   it('should return null without items', () => {
@@ -30,10 +48,46 @@ describe('Navigable', () => {
   })
 
   it('should render children', () => {
-    render(1)
+    render(firstItem)
     const calls = children.mock.calls
     expect(children).toHaveBeenCalled()
     expect(calls.length).toEqual(1)
   })
-  
+
+  it('should goto an item', () => {
+    render(firstItem + 1)
+    const { goto } = getArgs(children)
+    goto(firstItem)
+    expect(activeItem).toEqual(firstItem)
+  })
+
+  it('should go to the next item', () => {
+    render(firstItem)
+    const { next } = getArgs(children)
+    next()
+    expect(activeItem).toEqual(firstItem + 1)
+  })
+
+  it('should not go to the next item', () => {
+    render(lastItem)
+    const { next } = getArgs(children)
+    next()
+    expect(activeItem).toEqual(lastItem)
+  })
+
+  it('should go to the previous item', () => {
+    render(lastItem)
+    const { prev } = getArgs(children)
+    prev()
+    expect(activeItem).toEqual(lastItem - 1)
+  })
+
+  it('should not go to the previous item', () => {
+    render(firstItem)
+    const { prev } = getArgs(children)
+    prev()
+    expect(activeItem).toEqual(firstItem)
+  })
+
+
 })
