@@ -2,13 +2,14 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import Navigable from './Navigable'
 
-const n = (items, children, activeItem, onSelectItem, circular) => (
+const n = (items, children, activeItem, onSelectItem, circular, backward) => (
   <Navigable
     items={items}
     children={children}
     activeItem={activeItem}
     onSelectItem={onSelectItem}
     circular={circular}
+    backward={backward}
   />
 )
 
@@ -23,9 +24,9 @@ describe('Navigable', () => {
   let children
   let activeItem
   const select = item => { activeItem = item }
-  const render = (item, circular) => {
+  const render = (item, circular, backward) => {
     activeItem = item
-    shallow(n(list, children, activeItem, select, circular))
+    shallow(n(list, children, activeItem, select, circular, backward))
   }
   const getArgs = call => {
     const calls = call.mock.calls
@@ -104,5 +105,18 @@ describe('Navigable', () => {
     expect(activeItem).toEqual(lastItem)
   })
 
+  it('should circle back to the last item', () => {
+    render(firstItem, true, true)
+    const { next } = getArgs(children)
+    next()
+    expect(activeItem).toEqual(lastItem)
+  })
+
+  it('should circle back to the first item', () => {
+    render(lastItem, true, true)
+    const { prev } = getArgs(children)
+    prev()
+    expect(activeItem).toEqual(firstItem)
+  })
 
 })

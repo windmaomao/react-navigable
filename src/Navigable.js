@@ -11,7 +11,7 @@ import list from './list'
 
 const Navigable = ({ 
   items, activeItem, onSelectItem, children,
-  circular,
+  circular, backward
 }) => {
   if (!items) return null
   if (!children) return null
@@ -22,7 +22,7 @@ const Navigable = ({
   React.useEffect(() => {
     const count = items.length
     const index = items.indexOf(activeItem)
-    fns = list(count, index, circular)
+    fns = list(count, index, circular, backward)
     prevIndex = fns.prevIndex()
     canPrev = fns.canPrev()
     nextIndex = fns.nextIndex()
