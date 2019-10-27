@@ -6,8 +6,18 @@ const lastItem = items.length - 1
 describe('nav', () => {
 
   it('should return items count', () => {
-    const fns = nav(items, 1)
+    const fns = nav(items)
     expect(fns.count()).toEqual(items.length)
+  })
+
+  it('should return first index', () => {
+    const fns = nav(items)
+    expect(fns.firstIndex()).toEqual(0)
+  })
+
+  it('should return last index', () => {
+    const fns = nav(items)
+    expect(fns.lastIndex()).toEqual(lastItem)
   })
 
   it('should return item index', () => {
@@ -20,14 +30,24 @@ describe('nav', () => {
     expect(fns.canNext()).toEqual(true)
   })
 
+  it('should goto the next item', () => {
+    const fns = nav(items, 0)
+    expect(fns.nextIndex()).toEqual(1)
+  })
+
   it('should not be able to goto the next item', () => {
     const fns = nav(items, lastItem)
     expect(fns.canNext()).toEqual(false)
   })
 
-  it('should goto the previous item', () => {
+  it('should be able to goto the previous item', () => {
     const fns = nav(items, lastItem)
     expect(fns.canPrev()).toEqual(true)
+  })
+
+  it('should goto the previous item', () => {
+    const fns = nav(items, lastItem)
+    expect(fns.prevIndex()).toEqual(lastItem - 1)
   })
 
   it('should not be able to goto the prev item', () => {
@@ -35,28 +55,14 @@ describe('nav', () => {
     expect(fns.canPrev()).toEqual(false)
   })
 
-  // it('should circle to the first item', () => {
-  //   activeItem = lastItem
-  //   Navigable({
-  //     items, activeItem, onSelectItem, children,
-  //     circular: true
-  //   })
+  it('should circle to the first item', () => {
+    const fns = nav(items, lastItem, true)
+    expect(fns.nextIndex()).toEqual(0)
+  })
 
-  //   const { next } = getArgs(children)
-  //   next()
-  //   expect(activeItem).toEqual(1)
-  // })
-
-  // it('should circle to the last item', () => {
-  //   activeItem = 1
-  //   Navigable({
-  //     items, activeItem, onSelectItem, children,
-  //     circular: true
-  //   })
-
-  //   const { prev } = getArgs(children)
-  //   prev()
-  //   expect(activeItem).toEqual(lastItem)
-  // })
+  it('should circle to the last item', () => {
+    const fns = nav(items, 0, true)
+    expect(fns.prevIndex()).toEqual(lastItem)
+  })
 
 })
